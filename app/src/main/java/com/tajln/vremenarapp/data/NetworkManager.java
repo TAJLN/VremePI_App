@@ -93,14 +93,15 @@ public class NetworkManager {
     public static void updateToLatest(TextView textView){
 
         RequestQueue queue = Volley.newRequestQueue(ctx);
-        String url ="http://192.168.0.21:8080/podatki/latest";
+        String url ="http://tajln.dev.uk.to:8080/podatki/latest";
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);
-                        textView.setText(obj.getString("vlaga"));
+                        textView.setText(response);
+                        //textView.setText(obj.getString("vlaga"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                         textView.setText("Napaka pri obravnavanju odgovora strežnika");
@@ -114,7 +115,7 @@ public class NetworkManager {
 
     public static void updatelast30(LineChart lineChart) {
         RequestQueue queue = Volley.newRequestQueue(ctx);
-        String url ="http://192.168.0.21:8080/podatki/last30";
+        String url ="http://tajln.dev.uk.to:8080/podatki/last30";
 
         List<Entry> lineEntry = new ArrayList<>();
 
