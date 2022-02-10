@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">VremePI</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">VremePi</string>
+    <string name="nav_header_subtitle">Aplikacija</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Nastavitve</string>
+
+    <string name="menu_pregled">Pregled</string>
+    <string name="menu_grafi">Grafi</string>
+</resources>
