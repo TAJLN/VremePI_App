@@ -30,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> {
-            final TextView textView = findViewById(R.id.text_home);
-            NetworkManager.updateToLatest(textView);
+            if(findViewById(R.id.text_home) != null)
+                NetworkManager.updateToLatest(findViewById(R.id.text_home));
+            if(findViewById(R.id.chart1) != null)
+                NetworkManager.updatelast30(findViewById(R.id.chart1));
             Snackbar.make(view, "Osveževanje podatkov", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         });
         DrawerLayout drawer = binding.drawerLayout;

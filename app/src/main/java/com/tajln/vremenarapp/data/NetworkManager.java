@@ -145,14 +145,8 @@ public class NetworkManager {
                         e.printStackTrace();
                         System.out.println("Napaka pri obravnavanju odgovora strežnika");
                     }
-                }, error -> {
-            System.out.println(error);
-        });
+                }, System.out::println);
 
         queue.add(stringRequest);
-    }
-
-    public static void updateChart(LineChart lineChart){
-
     }
 }
