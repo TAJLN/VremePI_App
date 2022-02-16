@@ -5,7 +5,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.pregled.PregledFragment" android:background="#FFFFFF">
+        tools:context=".ui.pregled.PregledFragment" android:background="#FFFFFF"
+
+>
 
     <TextView
             android:id="@+id/text_home"
@@ -19,5 +21,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.00999999"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.00999999"
+            android:textColor="#919191"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

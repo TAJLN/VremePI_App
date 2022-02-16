@@ -7,10 +7,14 @@
         <item
                 android:id="@+id/nav_home"
                 android:icon="@android:drawable/ic_dialog_dialer"
-                android:title="@string/menu_pregled"/>
+                android:title="@string/menu_pregled"
+                android:color="@color/black"
+        />
         <item
                 android:id="@+id/nav_gallery"
                 android:icon="@android:drawable/ic_menu_sort_by_size"
-                android:title="@string/menu_grafi"/>
+                android:title="@string/menu_grafi"
+                android:color="@color/black"
+        />
     </group>
 </menu>
