@@ -2,6 +2,8 @@ package com.tajln.vremenarapp;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -35,9 +37,11 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(view -> {
             if(findViewById(R.id.text_home) != null)
                 NetworkManager.updateToLatest(findViewById(R.id.text_home));
-            if(findViewById(R.id.chart1) != null)
-                NetworkManager.updatelast30(findViewById(R.id.chart1));
-            Snackbar.make(view, "Osveževanje podatkov", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            if(findViewById(R.id.chart1) != null) {
+                Spinner spinner = findViewById(R.id.spinner1);
+                NetworkManager.updatelast30(findViewById(R.id.chart1), (String) spinner.getSelectedItem());
+            }
+            Snackbar.make(view, "Osveževanje podatkov", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;

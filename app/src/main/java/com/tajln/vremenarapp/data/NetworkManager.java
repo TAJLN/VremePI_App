@@ -100,7 +100,15 @@ public class NetworkManager {
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);
-                        textView.setText(response);
+                        textView.setText(
+                                "Čas: " + obj.getString("time") + "\n"+
+                                "Vlaga: " + obj.getString("vlaga") + " %\n"+
+                                "Pritisk: " + obj.getString("pritisk") + " hPa\n"+
+                                "Temperatura: " + obj.getString("temperatura") + " °C\n"+
+                                "Svetloba: " + obj.getString("svetloba") + " Lux\n"+
+                                "Oxidacije: " + obj.getString("oxid") + " kO\n"+
+                                "Redukcije: " + obj.getString("redu") + " kO\n"+
+                                "NH3: " + obj.getString("nh3") + " kO");
                         //textView.setText(obj.getString("vlaga"));
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -113,22 +121,47 @@ public class NetworkManager {
         queue.add(stringRequest);
     }
 
-    public static void updatelast30(LineChart lineChart) {
+    public static void updatelast30(LineChart lineChart, String kaj) {
         RequestQueue queue = Volley.newRequestQueue(ctx);
         String url ="http://tajln.dev.uk.to:8080/podatki/last30";
 
         List<Entry> lineEntry = new ArrayList<>();
 
+        String req = "";
+        switch(kaj){
+            case "Vlaga":
+                req = "vlaga";
+                break;
+            case "Pritisk":
+                req = "pritisk";
+                break;
+            case "Temperatura":
+                req = "temperatura";
+                break;
+            case "Svetloba":
+                req = "svetloba";
+                break;
+            case "Oxidacije":
+                req = "oxid";
+                break;
+            case "Redukcije":
+                req = "redu";
+                break;
+            case "NH3":
+                req = "nh3";
+                break;
+        }
 
+        String finalReq = req;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
                         JSONArray arr = new JSONArray(response);
                         for (int i=0; i < arr.length(); i++) {
                             JSONObject o = arr.getJSONObject(i);
-                            lineEntry.add(new Entry(i*20, (float) o.getDouble("vlaga")));
+                            lineEntry.add(new Entry(i*20, (float) o.getDouble(finalReq)));
                         }
-                        LineDataSet lineDataSet = new LineDataSet(lineEntry, "Vlaga");
+                        LineDataSet lineDataSet = new LineDataSet(lineEntry, kaj);
                         lineDataSet.setColors(ColorTemplate.rgb("#000000"));
 
                         LineData lineData = new LineData(lineDataSet);

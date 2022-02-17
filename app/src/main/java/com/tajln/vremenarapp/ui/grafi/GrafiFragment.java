@@ -4,22 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tajln.vremenarapp.R;
 import com.tajln.vremenarapp.data.NetworkManager;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class GrafiFragment extends Fragment {
+public class GrafiFragment extends Fragment{
 
     private LineChart lineChart;
     private View view;
@@ -32,6 +25,17 @@ public class GrafiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_grafi, container, false);
 
+        String[] arraySpinner = new String[] {
+                "Vlaga", "Pritisk", "Temperatura", "Svetloba", "Oxidacije", "Redukcije", "NH3"
+        };
+        Spinner s = view.findViewById(R.id.spinner1);
+        if(s != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(),
+                    android.R.layout.simple_spinner_item, arraySpinner);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            s.setAdapter(adapter);
+        }
+
         lineChart = view.findViewById(R.id.chart1);
         this.view = view;
 
@@ -40,6 +44,7 @@ public class GrafiFragment extends Fragment {
     }
 
     public void getGrowth(){
-        NetworkManager.updatelast30(lineChart);
+        Spinner spinner = view.findViewById(R.id.spinner1);
+        NetworkManager.updatelast30(lineChart, (String) spinner.getSelectedItem());
     }
 }

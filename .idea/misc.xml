@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/TAJLN/IdeaProjects/VremenarApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/TAJLN/IdeaProjects/VremenarApp/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
+        <entry key="..\:/Users/TAJLN/IdeaProjects/VremenarApp/app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="..\:/Users/TAJLN/IdeaProjects/VremenarApp/app/src/main/res/layout/fragment_grafi.xml" value="0.10666666666666667" />
+        <entry key="..\:/Users/TAJLN/IdeaProjects/VremenarApp/app/src/main/res/layout/fragment_home.xml" value="0.1408514492753623" />
+        <entry key="..\:/Users/TAJLN/IdeaProjects/VremenarApp/app/src/main/res/layout/nav_header_main.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
