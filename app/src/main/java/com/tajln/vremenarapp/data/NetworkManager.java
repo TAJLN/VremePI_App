@@ -2,13 +2,13 @@ package com.tajln.vremenarapp.data;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.LruCache;
 import android.view.View;
 import android.widget.TextView;
+import androidx.annotation.RequiresApi;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -18,13 +18,20 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.snackbar.Snackbar;
+import com.tajln.vremenarapp.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class NetworkManager {
     private static NetworkManager instance;
@@ -90,18 +97,33 @@ public class NetworkManager {
         return imageLoader;
     }
 
-    public static void updateToLatest(TextView textView){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void updateToLatest(View activity){
 
         RequestQueue queue = Volley.newRequestQueue(ctx);
         String url ="http://tajln.dev.uk.to:8080/podatki/latest";
 
+        TextView lastUpdate = activity.findViewById(R.id.text_lastUpdate);
+        TextView temp = activity.findViewById(R.id.text_temp);
+        TextView vlaga = activity.findViewById(R.id.text_vlaga);
+        TextView pritisk = activity.findViewById(R.id.text_pritisk);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);
-                        textView.setText(
-                                "Čas: " + obj.getString("time") + "\n"+
+
+                        Timestamp cas = Timestamp.valueOf(obj.getString("time").replaceAll("T"," ").replaceAll("[.]000[+]00:00",""));
+                        LocalDateTime triggerTime =
+                                LocalDateTime.ofInstant(Instant.ofEpochMilli(cas.getTime()),
+                                        TimeZone.getDefault().toZoneId());
+
+                        lastUpdate.setText("Osveženo: " + triggerTime.getDayOfMonth() + ". " + triggerTime.getMonthValue() + ". " + triggerTime.getYear() + " " + triggerTime.getHour() + ":" + triggerTime.getMinute() + ":" + triggerTime.getSecond());
+                        temp.setText(round(obj.getDouble("temperatura"),1) + " °C");
+                        vlaga.setText(round(obj.getDouble("vlaga"),1) + " %");
+                        pritisk.setText(round(obj.getDouble("pritisk"),1) + " hPa");
+
+                        /*
                                 "Vlaga: " + obj.getString("vlaga") + " %\n"+
                                 "Pritisk: " + obj.getString("pritisk") + " hPa\n"+
                                 "Temperatura: " + obj.getString("temperatura") + " °C\n"+
@@ -109,13 +131,15 @@ public class NetworkManager {
                                 "Oxidacije: " + obj.getString("oxid") + " kO\n"+
                                 "Redukcije: " + obj.getString("redu") + " kO\n"+
                                 "NH3: " + obj.getString("nh3") + " kO");
+
+                         */
                         //textView.setText(obj.getString("vlaga"));
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        textView.setText("Napaka pri obravnavanju odgovora strežnika");
+                        lastUpdate.setText("Napaka pri obravnavanju odgovora strežnika");
                     }
                 }, error -> {
-                    textView.setText("Težava pri pridobivanju podatkov");
+                    lastUpdate.setText("Težava pri pridobivanju podatkov");
                 });
 
         queue.add(stringRequest);
@@ -181,5 +205,14 @@ public class NetworkManager {
                 }, System.out::println);
 
         queue.add(stringRequest);
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 }

@@ -10,9 +10,31 @@
 >
 
     <TextView
-            android:id="@+id/text_home"
-            android:layout_width="397dp"
-            android:layout_height="627dp"
+            android:layout_width="40dp"
+            android:layout_height="25dp" android:id="@+id/text_pritisk"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="295dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    <TextView
+            android:text="Pritisk:"
+            android:layout_width="65dp"
+            android:layout_height="30dp" android:id="@+id/textView5"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="232dp" android:textSize="20sp"/>
+    <ImageView
+            android:src="@drawable/barometersimple"
+            android:layout_width="25dp"
+            android:layout_height="25dp" android:id="@+id/barometer"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="200dp" app:srcCompat="@drawable/barometer"/>
+    <TextView
+            android:id="@+id/text_lastUpdate"
+            android:layout_width="396dp"
+            android:layout_height="45dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -23,4 +45,33 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.00999999"
             android:textColor="#919191"/>
+    <TextView
+            android:layout_width="395dp"
+            android:layout_height="118dp" android:id="@+id/text_temp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="69dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:textSize="60sp" android:textAlignment="center"
+            android:textStyle="bold"/>
+    <ImageView
+            android:src="@drawable/dropletthick"
+            android:layout_width="25dp"
+            android:layout_height="25dp" android:id="@+id/droplet"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="48dp" app:srcCompat="@drawable/dropletthick"/>
+    <TextView
+            android:layout_width="40dp"
+            android:layout_height="25dp" android:id="@+id/text_vlaga"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="140dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    <TextView
+            android:text="Vlaga:"
+            android:layout_width="60dp"
+            android:layout_height="30dp" android:id="@+id/textView4"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="80dp" android:textSize="20sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

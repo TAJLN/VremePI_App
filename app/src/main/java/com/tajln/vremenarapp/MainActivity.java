@@ -34,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+
         binding.appBarMain.fab.setOnClickListener(view -> {
-            if(findViewById(R.id.text_home) != null)
-                NetworkManager.updateToLatest(findViewById(R.id.text_home));
+            if(findViewById(R.id.text_lastUpdate) != null)
+                NetworkManager.updateToLatest(findViewById(android.R.id.content).getRootView());
             if(findViewById(R.id.chart1) != null) {
                 Spinner spinner = findViewById(R.id.spinner1);
                 NetworkManager.updatelast30(findViewById(R.id.chart1), (String) spinner.getSelectedItem());

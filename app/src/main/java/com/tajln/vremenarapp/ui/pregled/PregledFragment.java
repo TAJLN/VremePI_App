@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import com.tajln.vremenarapp.MainActivity;
 import com.tajln.vremenarapp.data.NetworkManager;
 import com.tajln.vremenarapp.databinding.FragmentHomeBinding;
 
@@ -26,7 +27,7 @@ public class PregledFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
+        final TextView textView = binding.textLastUpdate;
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -34,7 +35,7 @@ public class PregledFragment extends Fragment {
             }
         });
 
-        NetworkManager.updateToLatest(textView);
+        NetworkManager.updateToLatest(root);
 
         return root;
     }
