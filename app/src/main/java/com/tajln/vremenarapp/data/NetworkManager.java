@@ -121,7 +121,7 @@ public class NetworkManager {
                         lastUpdate.setText("Osveženo: " + triggerTime.getDayOfMonth() + ". " + triggerTime.getMonthValue() + ". " + triggerTime.getYear() + " " + triggerTime.getHour() + ":" + triggerTime.getMinute() + ":" + triggerTime.getSecond());
                         temp.setText(round(obj.getDouble("temperatura"),1) + " °C");
                         vlaga.setText(round(obj.getDouble("vlaga"),1) + " %");
-                        pritisk.setText(round(obj.getDouble("pritisk"),1) + " hPa");
+                        pritisk.setText(round(obj.getDouble("pritisk")/1000,3) + " bar");
 
                         /*
                                 "Vlaga: " + obj.getString("vlaga") + " %\n"+

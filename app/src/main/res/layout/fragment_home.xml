@@ -10,11 +10,11 @@
 >
 
     <TextView
-            android:layout_width="40dp"
+            android:layout_width="100dp"
             android:layout_height="25dp" android:id="@+id/text_pritisk"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="295dp"
+            android:layout_marginStart="300dp"
             android:textSize="20sp"
             android:textStyle="bold"/>
     <TextView
@@ -58,20 +58,20 @@
             android:layout_height="25dp" android:id="@+id/droplet"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="48dp" app:srcCompat="@drawable/dropletthick"/>
-    <TextView
-            android:layout_width="40dp"
-            android:layout_height="25dp" android:id="@+id/text_vlaga"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="140dp"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:layout_marginStart="16dp" app:srcCompat="@drawable/dropletthick"/>
     <TextView
             android:text="Vlaga:"
             android:layout_width="60dp"
             android:layout_height="30dp" android:id="@+id/textView4"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="80dp" android:textSize="20sp"/>
+            android:layout_marginStart="48dp" android:textSize="20sp"/>
+    <TextView
+            android:layout_width="75dp"
+            android:layout_height="25dp" android:id="@+id/text_vlaga"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="108dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
