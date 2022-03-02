@@ -107,6 +107,7 @@ public class NetworkManager {
         TextView temp = activity.findViewById(R.id.text_temp);
         TextView vlaga = activity.findViewById(R.id.text_vlaga);
         TextView pritisk = activity.findViewById(R.id.text_pritisk);
+        TextView svetloba = activity.findViewById(R.id.text_svetloba);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -122,7 +123,7 @@ public class NetworkManager {
                         temp.setText(round(obj.getDouble("temperatura"),1) + " °C");
                         vlaga.setText(round(obj.getDouble("vlaga"),1) + " %");
                         pritisk.setText(round(obj.getDouble("pritisk")/1000,3) + " bar");
-
+                        svetloba.setText(obj.get("svetloba") + " lx");
                         /*
                                 "Vlaga: " + obj.getString("vlaga") + " %\n"+
                                 "Pritisk: " + obj.getString("pritisk") + " hPa\n"+

@@ -10,16 +10,38 @@
 >
 
     <TextView
+            android:layout_width="110dp"
+            android:layout_height="25dp" android:id="@+id/text_svetloba"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="244dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="143dp"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    <TextView
+            android:text="Svetloba:"
+            android:layout_width="95dp"
+            android:layout_height="30dp" android:id="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="244dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="48dp" android:textSize="20sp"/>
+    <ImageView
+            android:src="@drawable/sun"
+            android:layout_width="25dp"
+            android:layout_height="25dp" android:id="@+id/sun"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="244dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" app:srcCompat="@drawable/sun"/>
+    <TextView
             android:layout_width="100dp"
             android:layout_height="25dp" android:id="@+id/text_pritisk"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="300dp"
+            android:layout_marginStart="302dp"
             android:textSize="20sp"
             android:textStyle="bold"/>
     <TextView
             android:text="Pritisk:"
-            android:layout_width="65dp"
+            android:layout_width="70dp"
             android:layout_height="30dp" android:id="@+id/textView5"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +83,7 @@
             android:layout_marginStart="16dp" app:srcCompat="@drawable/dropletthick"/>
     <TextView
             android:text="Vlaga:"
-            android:layout_width="60dp"
+            android:layout_width="65dp"
             android:layout_height="30dp" android:id="@+id/textView4"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +93,7 @@
             android:layout_height="25dp" android:id="@+id/text_vlaga"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="108dp"
+            android:layout_marginStart="115dp"
             android:textSize="20sp"
             android:textStyle="bold"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
