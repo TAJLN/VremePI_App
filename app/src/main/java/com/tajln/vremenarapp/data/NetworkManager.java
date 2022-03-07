@@ -3,35 +3,32 @@ package com.tajln.vremenarapp.data;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.util.Log;
 import android.util.LruCache;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.android.volley.*;
+import com.android.volley.toolbox.*;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.gson.JsonObject;
 import com.tajln.vremenarapp.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
 
 public class NetworkManager {
     private static NetworkManager instance;
@@ -109,41 +106,45 @@ public class NetworkManager {
         TextView pritisk = activity.findViewById(R.id.text_pritisk);
         TextView svetloba = activity.findViewById(R.id.text_svetloba);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        JSONObject object = new JSONObject();
+        try {
+            object.put("kljuc","A35FNA1F");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 response -> {
                     try {
-                        JSONObject obj = new JSONObject(response);
-
-                        Timestamp cas = Timestamp.valueOf(obj.getString("time").replaceAll("T"," ").replaceAll("[.]000[+]00:00",""));
+                        Timestamp cas = Timestamp.valueOf(response.getString("time").replaceAll("T", " ").replaceAll("[.]000[+]00:00", ""));
                         LocalDateTime triggerTime =
                                 LocalDateTime.ofInstant(Instant.ofEpochMilli(cas.getTime()),
                                         TimeZone.getDefault().toZoneId());
 
                         lastUpdate.setText("Osveženo: " + triggerTime.getDayOfMonth() + ". " + triggerTime.getMonthValue() + ". " + triggerTime.getYear() + " " + triggerTime.getHour() + ":" + triggerTime.getMinute() + ":" + triggerTime.getSecond());
-                        temp.setText(round(obj.getDouble("temperatura"),1) + " °C");
-                        vlaga.setText(round(obj.getDouble("vlaga"),1) + " %");
-                        pritisk.setText(round(obj.getDouble("pritisk")/1000,3) + " bar");
-                        svetloba.setText(obj.get("svetloba") + " lx");
-                        /*
-                                "Vlaga: " + obj.getString("vlaga") + " %\n"+
-                                "Pritisk: " + obj.getString("pritisk") + " hPa\n"+
-                                "Temperatura: " + obj.getString("temperatura") + " °C\n"+
-                                "Svetloba: " + obj.getString("svetloba") + " Lux\n"+
-                                "Oxidacije: " + obj.getString("oxid") + " kO\n"+
-                                "Redukcije: " + obj.getString("redu") + " kO\n"+
-                                "NH3: " + obj.getString("nh3") + " kO");
+                        temp.setText(round(response.getDouble("temperatura"), 1) + " °C");
+                        vlaga.setText(round(response.getDouble("vlaga"), 1) + " %");
+                        pritisk.setText(round(response.getDouble("pritisk") / 1000, 3) + " bar");
+                        svetloba.setText(response.get("svetloba") + " lx");
+                    /*
+                            "Vlaga: " + obj.getString("vlaga") + " %\n"+
+                            "Pritisk: " + obj.getString("pritisk") + " hPa\n"+
+                            "Temperatura: " + obj.getString("temperatura") + " °C\n"+
+                            "Svetloba: " + obj.getString("svetloba") + " Lux\n"+
+                            "Oxidacije: " + obj.getString("oxid") + " kO\n"+
+                            "Redukcije: " + obj.getString("redu") + " kO\n"+
+                            "NH3: " + obj.getString("nh3") + " kO");
 
-                         */
+                     */
                         //textView.setText(obj.getString("vlaga"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                         lastUpdate.setText("Napaka pri obravnavanju odgovora strežnika");
                     }
-                }, error -> {
-                    lastUpdate.setText("Težava pri pridobivanju podatkov");
-                });
+                },
+                error -> lastUpdate.setText("Težava pri pridobivanju podatkov"));
 
-        queue.add(stringRequest);
+        queue.add(jsonObjectRequest);
     }
 
     public static void updatelast30(LineChart lineChart, String kaj) {
@@ -177,11 +178,17 @@ public class NetworkManager {
                 break;
         }
 
+        JSONObject object = new JSONObject();
+        try {
+            object.put("kljuc","A35FNA1F");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         String finalReq = req;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                response -> {
+        CustomJsonArrayRequest jsonArrayRequest = new CustomJsonArrayRequest(Request.Method.POST, url, object,
+                arr -> {
                     try {
-                        JSONArray arr = new JSONArray(response);
                         for (int i=0; i < arr.length(); i++) {
                             JSONObject o = arr.getJSONObject(i);
                             lineEntry.add(new Entry(i*20, (float) o.getDouble(finalReq)));
@@ -203,9 +210,9 @@ public class NetworkManager {
                         e.printStackTrace();
                         System.out.println("Napaka pri obravnavanju odgovora strežnika");
                     }
-                }, System.out::println);
+        }, System.out::println);
 
-        queue.add(stringRequest);
+        queue.add(jsonArrayRequest);
     }
 
     public static double round(double value, int places) {

@@ -1,5 +1,6 @@
 package com.tajln.vremenarapp.ui.pregled;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import com.tajln.vremenarapp.MainActivity;
 import com.tajln.vremenarapp.data.NetworkManager;
 import com.tajln.vremenarapp.databinding.FragmentHomeBinding;
 
@@ -19,6 +19,7 @@ public class PregledFragment extends Fragment {
     private PregledViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
+    @SuppressLint("NewApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
