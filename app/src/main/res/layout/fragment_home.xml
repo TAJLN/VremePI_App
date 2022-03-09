@@ -9,116 +9,6 @@
 
 >
 
-    <ImageView
-            android:src="@drawable/nh3"
-            android:layout_width="50dp"
-            android:layout_height="50dp" android:id="@+id/nh3"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="540dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" app:srcCompat="@drawable/nh3"/>
-    <TextView
-            android:layout_width="185dp"
-            android:layout_height="50dp" android:id="@+id/text_nh3"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="544dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="150dp"
-            android:textSize="34sp"
-            android:textStyle="bold"/>
-    <TextView
-            android:text="NH3:"
-            android:layout_width="80dp"
-            android:layout_height="50dp" android:id="@+id/textView7"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="544dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="68dp" android:textSize="34sp"/>
-    <ImageView
-            android:src="@drawable/redu"
-            android:layout_width="50dp"
-            android:layout_height="50dp" android:id="@+id/redu"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="476dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" app:srcCompat="@drawable/redu"/>
-    <TextView
-            android:layout_width="185dp"
-            android:layout_height="50dp" android:id="@+id/text_redukcije"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="480dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="225dp"
-            android:textSize="34sp"
-            android:textStyle="bold"/>
-    <TextView
-            android:text="Redukcije:"
-            android:layout_width="155dp"
-            android:layout_height="50dp" android:id="@+id/textView6"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="480dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="68dp" android:textSize="34sp"/>
-    <ImageView
-            android:src="@drawable/barometersimple"
-            android:layout_width="50dp"
-            android:layout_height="50dp" android:id="@+id/barometer"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="280dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" app:srcCompat="@drawable/barometer"/>
-    <ImageView
-            android:src="@drawable/sun"
-            android:layout_width="50dp"
-            android:layout_height="50dp" android:id="@+id/sun"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="348dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" app:srcCompat="@drawable/sun"/>
-    <TextView
-            android:text="Oxidacije:"
-            android:layout_width="150dp"
-            android:layout_height="50dp" android:id="@+id/textView3"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="416dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="68dp" android:textSize="34sp"/>
-    <TextView
-            android:layout_width="190dp"
-            android:layout_height="50dp" android:id="@+id/text_oxidacije"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="416dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="220dp"
-            android:textSize="34sp"
-            android:textStyle="bold"/>
-    <ImageView
-            android:src="@drawable/oxid"
-            android:layout_width="50dp"
-            android:layout_height="50dp" android:id="@+id/oxid"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="412dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" app:srcCompat="@drawable/oxid"/>
-    <TextView
-            android:text="Svetloba:"
-            android:layout_width="140dp"
-            android:layout_height="50dp" android:id="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="348dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="68dp" android:textSize="34sp"/>
-    <TextView
-            android:layout_width="190dp"
-            android:layout_height="50dp" android:id="@+id/text_svetloba"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="348dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="208dp"
-            android:textSize="34sp"
-            android:textStyle="bold"/>
-    <TextView
-            android:layout_width="230dp"
-            android:layout_height="50dp" android:id="@+id/text_pritisk"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="282dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="178dp"
-            android:textSize="34sp"
-            android:textStyle="bold"/>
-    <TextView
-            android:text="Pritisk:"
-            android:layout_width="108dp"
-            android:layout_height="50dp" android:id="@+id/textView5"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="282dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="70dp" android:textSize="34sp"/>
     <TextView
             android:id="@+id/text_lastUpdate"
             android:layout_width="396dp"
@@ -146,20 +36,130 @@
             android:layout_height="50dp" android:id="@+id/droplet"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" app:srcCompat="@drawable/dropletthick"/>
+            android:layout_marginStart="8dp" app:srcCompat="@drawable/dropletthick"/>
     <TextView
-            android:text="Vlaga:"
-            android:layout_width="100dp"
-            android:layout_height="50dp" android:id="@+id/textView4"
+            android:layout_width="185dp"
+            android:layout_height="50dp" android:id="@+id/text_redukcije"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="66dp" android:textSize="34sp"/>
+            android:layout_marginTop="468dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="228dp"
+            android:textSize="34sp"
+            android:textStyle="bold"/>
+    <ImageView
+            android:src="@drawable/sun"
+            android:layout_width="50dp"
+            android:layout_height="50dp" android:id="@+id/sun"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="336dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:srcCompat="@drawable/sun"/>
+    <ImageView
+            android:src="@drawable/nh3"
+            android:layout_width="50dp"
+            android:layout_height="50dp" android:id="@+id/nh3"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="528dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:srcCompat="@drawable/nh3"/>
+    <TextView
+            android:layout_width="185dp"
+            android:layout_height="50dp" android:id="@+id/text_nh3"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="532dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="148dp"
+            android:textSize="34sp"
+            android:textStyle="bold"/>
+    <TextView
+            android:text="Redukcije:"
+            android:layout_width="170dp"
+            android:layout_height="50dp" android:id="@+id/textView6"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="468dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="60dp" android:textSize="34sp"/>
+    <TextView
+            android:text="Pritisk:"
+            android:layout_width="115dp"
+            android:layout_height="50dp" android:id="@+id/textView5"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="268dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="60dp" android:textSize="34sp"/>
+    <ImageView
+            android:src="@drawable/barometersimple"
+            android:layout_width="50dp"
+            android:layout_height="50dp" android:id="@+id/barometer"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="268dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:srcCompat="@drawable/barometer"/>
+    <TextView
+            android:text="Oxidacije:"
+            android:layout_width="164dp"
+            android:layout_height="50dp" android:id="@+id/textView3"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="404dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="60dp" android:textSize="34sp"/>
+    <TextView
+            android:layout_width="230dp"
+            android:layout_height="50dp" android:id="@+id/text_pritisk"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="268dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="176dp"
+            android:textSize="34sp"
+            android:textStyle="bold"/>
+    <TextView
+            android:layout_width="190dp"
+            android:layout_height="50dp" android:id="@+id/text_svetloba"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="336dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="216dp"
+            android:textSize="34sp"
+            android:textStyle="bold"/>
+    <TextView
+            android:text="NH3:"
+            android:layout_width="85dp"
+            android:layout_height="50dp" android:id="@+id/textView7"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="532dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="60dp" android:textSize="34sp"/>
+    <ImageView
+            android:src="@drawable/redu"
+            android:layout_width="50dp"
+            android:layout_height="50dp" android:id="@+id/redu"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="464dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:srcCompat="@drawable/redu"/>
     <TextView
             android:layout_width="240dp"
             android:layout_height="50dp" android:id="@+id/text_vlaga"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="166dp"
+            android:layout_marginStart="164dp"
             android:textSize="34sp"
             android:textStyle="bold"/>
+    <TextView
+            android:text="Svetloba:"
+            android:layout_width="155dp"
+            android:layout_height="50dp" android:id="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="336dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="60dp" android:textSize="34sp"/>
+    <ImageView
+            android:src="@drawable/oxid"
+            android:layout_width="50dp"
+            android:layout_height="50dp" android:id="@+id/oxid"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="400dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:srcCompat="@drawable/oxid"/>
+    <TextView
+            android:layout_width="190dp"
+            android:layout_height="50dp" android:id="@+id/text_oxidacije"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="404dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="224dp"
+            android:textSize="34sp"
+            android:textStyle="bold"/>
+    <TextView
+            android:text="Vlaga:"
+            android:layout_width="105dp"
+            android:layout_height="50dp" android:id="@+id/textView4"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="56dp" android:textSize="34sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

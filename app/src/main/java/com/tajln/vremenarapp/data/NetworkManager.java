@@ -131,16 +131,16 @@ public class NetworkManager {
                         else
                             h = String.valueOf(hour);
 
-                        int min = triggerTime.getHour();
+                        int min = triggerTime.getMinute();
                         String m;
-                        if(hour < 10)
+                        if(min < 10)
                             m = "0" + min;
                         else
                             m = String.valueOf(min);
 
-                        int sec = triggerTime.getHour();
+                        int sec = triggerTime.getSecond();
                         String s;
-                        if(hour < 10)
+                        if(sec < 10)
                             s = "0" + sec;
                         else
                             s = String.valueOf(sec);
@@ -149,10 +149,10 @@ public class NetworkManager {
                         temp.setText(round(response.getDouble("temperatura"), 1) + " °C");
                         vlaga.setText(round(response.getDouble("vlaga"), 1) + " %");
                         pritisk.setText(round(response.getDouble("pritisk") / 1000, 3) + " bar");
-                        svetloba.setText(response.get("svetloba") + " Lux");
-                        oxidacije.setText(response.get("oxid") + " kO");
-                        redukcije.setText(response.get("redu") + " kO");
-                        nh3.setText(response.get("nh3") + " kO");
+                        svetloba.setText(round(response.getDouble("svetloba"), 2) + " Lux");
+                        oxidacije.setText(round(response.getDouble("oxid"),2) + " kO");
+                        redukcije.setText(round(response.getDouble("redu"),2) + " kO");
+                        nh3.setText(round(response.getDouble("nh3"),2) + " kO");
                     /*
                             "Vlaga: " + obj.getString("vlaga") + " %\n"+
                             "Pritisk: " + obj.getString("pritisk") + " hPa\n"+
