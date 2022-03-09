@@ -105,6 +105,9 @@ public class NetworkManager {
         TextView vlaga = activity.findViewById(R.id.text_vlaga);
         TextView pritisk = activity.findViewById(R.id.text_pritisk);
         TextView svetloba = activity.findViewById(R.id.text_svetloba);
+        TextView oxidacije = activity.findViewById(R.id.text_oxidacije);
+        TextView redukcije = activity.findViewById(R.id.text_redukcije);
+        TextView nh3 = activity.findViewById(R.id.text_nh3);
 
         JSONObject object = new JSONObject();
         try {
@@ -121,11 +124,35 @@ public class NetworkManager {
                                 LocalDateTime.ofInstant(Instant.ofEpochMilli(cas.getTime()),
                                         TimeZone.getDefault().toZoneId());
 
-                        lastUpdate.setText("Osveženo: " + triggerTime.getDayOfMonth() + ". " + triggerTime.getMonthValue() + ". " + triggerTime.getYear() + " " + triggerTime.getHour() + ":" + triggerTime.getMinute() + ":" + triggerTime.getSecond());
+                        int hour = triggerTime.getHour();
+                        String h;
+                        if(hour < 10)
+                            h = "0" + hour;
+                        else
+                            h = String.valueOf(hour);
+
+                        int min = triggerTime.getHour();
+                        String m;
+                        if(hour < 10)
+                            m = "0" + min;
+                        else
+                            m = String.valueOf(min);
+
+                        int sec = triggerTime.getHour();
+                        String s;
+                        if(hour < 10)
+                            s = "0" + sec;
+                        else
+                            s = String.valueOf(sec);
+
+                        lastUpdate.setText("Osveženo: " + triggerTime.getDayOfMonth() + ". " + triggerTime.getMonthValue() + ". " + triggerTime.getYear() + " " + h + ":" + m + ":" + s);
                         temp.setText(round(response.getDouble("temperatura"), 1) + " °C");
                         vlaga.setText(round(response.getDouble("vlaga"), 1) + " %");
                         pritisk.setText(round(response.getDouble("pritisk") / 1000, 3) + " bar");
-                        svetloba.setText(response.get("svetloba") + " lx");
+                        svetloba.setText(response.get("svetloba") + " Lux");
+                        oxidacije.setText(response.get("oxid") + " kO");
+                        redukcije.setText(response.get("redu") + " kO");
+                        nh3.setText(response.get("nh3") + " kO");
                     /*
                             "Vlaga: " + obj.getString("vlaga") + " %\n"+
                             "Pritisk: " + obj.getString("pritisk") + " hPa\n"+
