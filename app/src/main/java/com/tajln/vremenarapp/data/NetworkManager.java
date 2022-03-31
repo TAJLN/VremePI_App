@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.Log;
 import android.util.LruCache;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import com.android.volley.*;
@@ -313,6 +314,25 @@ public class NetworkManager {
             }
         };
         queue.add(sr);
+    }
+
+    public static void LoadImage(ImageView imageView, String url){
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+
+        final ImageRequest imageRequest=new ImageRequest (url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                imageView.setImageBitmap(response);
+
+            }
+        },0,0, ImageView.ScaleType.CENTER_CROP,null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+
+            }
+        });
+        queue.add(imageRequest);
     }
 
     public static double round(double value, int places) {

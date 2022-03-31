@@ -1,21 +1,29 @@
 package com.tajln.vremenarapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import com.tajln.vremenarapp.config.EnvVal;
 import com.tajln.vremenarapp.data.NetworkManager;
 import com.tajln.vremenarapp.utils.PkceUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static com.tajln.vremenarapp.config.EnvVal.*;
 
@@ -73,6 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             Button clickButton = view.findViewById(R.id.button);
             TextView hi = view.findViewById(R.id.hi);
+            CardView card = view.findViewById(R.id.card);
             clickButton.setOnClickListener( new View.OnClickListener() {
 
                 @Override
@@ -104,16 +113,27 @@ public class SettingsActivity extends AppCompatActivity {
             if(EnvVal.TokenBody != null){
                 clickButton.setVisibility(View.GONE);
                 hi.setVisibility(View.VISIBLE);
+                card.setVisibility(View.VISIBLE);
 
                 try {
                     String gender = UserInfo.getString("gender");
                     String full_name = UserInfo.getString("full_name");
+                    String profile_pic_url = UserInfo.getString("profile_picture");
 
+                    ImageView profile_pic = view.findViewById(R.id.profile_pic);
 
-                    if(gender.equals("F"))
-                        hi.setText("Pozdravljena, " + full_name + "!");
-                    else
-                        hi.setText("Pozdravljen, " + full_name + "!");
+                    NetworkManager.LoadImage(profile_pic, profile_pic_url);
+                    switch(gender){
+                        case "F":
+                            hi.setText("Pozdravljena, " + full_name + "!");
+                            break;
+                        case "M":
+                            hi.setText("Pozdravljen, " + full_name + "!");
+                            break;
+                        default:
+                            hi.setText("Pozdravljeni, " + full_name + "!");
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -121,6 +141,7 @@ public class SettingsActivity extends AppCompatActivity {
             } else{
                 clickButton.setVisibility(View.VISIBLE);
                 hi.setVisibility(View.GONE);
+                card.setVisibility(View.GONE);
             }
 
 
