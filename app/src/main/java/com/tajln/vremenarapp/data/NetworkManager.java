@@ -17,7 +17,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.tajln.vremenarapp.R;
+import com.tajln.vremenarapp.config.EnvVal;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -240,6 +242,77 @@ public class NetworkManager {
         }, System.out::println);
 
         queue.add(jsonArrayRequest);
+    }
+
+    public interface VolleyCallBack {
+        void onSuccess(JSONObject body);
+    }
+
+    public static void getToken(String CODE, String CODE_VERIFIER, final VolleyCallBack callBack) {
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        String url ="https://api.one-account.io/v1/oauth/token";
+
+        StringRequest sr = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONObject body = new JSONObject(response);
+                        System.out.println(body);
+                        callBack.onSuccess(body);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("HttpClient", "error: " + error.toString()))
+        {
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<>();
+                params.put("code",CODE);
+                params.put("redirect_uri",EnvVal.REDIRECT_URI);
+                params.put("code_verifier",CODE_VERIFIER);
+                params.put("grant_type","authorization_code");
+                params.put("client_id", EnvVal.CLIENT_ID);
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String,String> params = new HashMap<>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        queue.add(sr);
+    }
+
+    public static void getUserInfo(final VolleyCallBack callBack) {
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        String url ="https://api.one-account.io/v1/oauth/userinfo";
+
+        StringRequest sr = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONObject body = new JSONObject(response);
+                        callBack.onSuccess(body);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.e("HttpClient", "error: " + error.toString()))
+        {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String,String> params = new HashMap<>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                try {
+                    params.put("Authorization",EnvVal.TokenBody.getString("token_type") + " " + EnvVal.TokenBody.getString("access_token"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return params;
+            }
+        };
+        queue.add(sr);
     }
 
     public static double round(double value, int places) {
