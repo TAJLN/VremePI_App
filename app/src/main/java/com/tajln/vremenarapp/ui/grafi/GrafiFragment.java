@@ -34,6 +34,17 @@ public class GrafiFragment extends Fragment{
                     android.R.layout.simple_spinner_item, arraySpinner);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             s.setAdapter(adapter);
+            s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    NetworkManager.updatelast30(lineChart, String.valueOf(s.getSelectedItem()));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
         }
 
         lineChart = view.findViewById(R.id.chart1);

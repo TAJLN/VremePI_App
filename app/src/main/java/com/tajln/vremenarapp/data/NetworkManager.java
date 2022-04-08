@@ -3,10 +3,13 @@ package com.tajln.vremenarapp.data;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.health.SystemHealthManager;
 import android.util.Log;
 import android.util.LruCache;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import com.android.volley.*;
@@ -251,6 +254,14 @@ public class NetworkManager {
 
     public static void getToken(String CODE, String CODE_VERIFIER, final VolleyCallBack callBack) {
         RequestQueue queue = Volley.newRequestQueue(ctx);
+
+
+        System.out.println(CODE);
+        System.out.println(EnvVal.REDIRECT_URI);
+        System.out.println(CODE_VERIFIER);
+        System.out.println(EnvVal.CLIENT_ID);
+
+
         String url ="https://api.one-account.io/v1/oauth/token";
 
         StringRequest sr = new StringRequest(Request.Method.POST, url,
@@ -284,6 +295,28 @@ public class NetworkManager {
             }
         };
         queue.add(sr);
+    }
+
+    public static void addUserToDbIfNotExists(String token){
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        String url ="http://tajln.dev.uk.to:8080/podatki/addUser";
+
+        System.out.println("TLE JE TOKEN: " + token);
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("token", token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                response -> {
+                    System.out.println("Uporabnik dodan");
+                },
+                error -> System.out.println(error.toString()));
+
+        queue.add(jsonObjectRequest);
     }
 
     public static void getUserInfo(final VolleyCallBack callBack) {

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Uri data = intent.getData();
 
-        if(data != null){
+        if(data != null && TokenBody == null){
             String code = data.toString().split("=")[1];
             System.out.println(code);
 
@@ -46,13 +47,19 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(JSONObject body) {
                     EnvVal.TokenBody = body;
+
+                    try {
+                        NetworkManager.addUserToDbIfNotExists(TokenBody.getString("access_token"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     NetworkManager.getUserInfo(new NetworkManager.VolleyCallBack() {
                         @Override
                         public void onSuccess(JSONObject body) {
                             System.out.println(body);
                             UserInfo = body;
-                            finish();
-                            startActivity(getIntent());
+                            recreate();
                         }
                     });
                 }
@@ -71,6 +78,14 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        ImageView gumbzanazaj = findViewById(R.id.nazaj);
+        gumbzanazaj.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 
@@ -82,6 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
             Button clickButton = view.findViewById(R.id.button);
             TextView hi = view.findViewById(R.id.hi);
             CardView card = view.findViewById(R.id.card);
+            Spinner spinner = view.findViewById(R.id.spinner1);
             clickButton.setOnClickListener( new View.OnClickListener() {
 
                 @Override
@@ -114,6 +130,7 @@ public class SettingsActivity extends AppCompatActivity {
                 clickButton.setVisibility(View.GONE);
                 hi.setVisibility(View.VISIBLE);
                 card.setVisibility(View.VISIBLE);
+                spinner.setVisibility(View.VISIBLE);
 
                 try {
                     String gender = UserInfo.getString("gender");
@@ -142,6 +159,7 @@ public class SettingsActivity extends AppCompatActivity {
                 clickButton.setVisibility(View.VISIBLE);
                 hi.setVisibility(View.GONE);
                 card.setVisibility(View.GONE);
+                spinner.setVisibility(View.GONE);
             }
 
 
