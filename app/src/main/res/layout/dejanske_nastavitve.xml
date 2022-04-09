@@ -11,7 +11,7 @@
 
 
     <Button
-            android:text="Sign in with One Account"
+            android:text="Prijavi se z One Account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/button"
             android:backgroundTint="@color/white"
@@ -35,7 +35,7 @@
             android:layout_gravity="center" app:cardBackgroundColor="#ffffff"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="90dp" android:id="@+id/card">
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="10dp" android:id="@+id/card">
 
         <ImageView
                 android:layout_width="150dp"
@@ -53,12 +53,43 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="300dp"/>
+            app:layout_constraintTop_toTopOf="@id/textView9" android:layout_marginTop="30dp"
+            tools:ignore="SpeakableTextPresentCheck"/>
     <Button
             android:text="Odjavi se"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/odjava_gumb"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="84dp"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_postaje"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="60dp"/>
+    <Button
+            android:text="Kopiraj ključ"
+            android:layout_width="149dp"
+            android:layout_height="48dp" android:id="@+id/kopiraj"
+            android:textSize="12sp" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="200dp"
+            android:backgroundTint="#D5D4D4" app:layout_constraintTop_toBottomOf="@+id/spinner_postaje"/>
+    <TextView
+            android:text="Trenutna postaja:"
+            android:layout_width="300dp"
+            android:layout_height="29dp" android:id="@+id/textView9"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hi" android:textAlignment="center" android:textSize="20sp"
+    />
+    <Button
+            android:text="Ustvari novo postajo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/ustvari_postajo_gumb"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="#D5D4D4" android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/izbris_gumb"/>
+    <Button
+            android:text="Izbriši postajo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/izbris_gumb"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="3dp"
+            app:layout_constraintTop_toBottomOf="@+id/kopiraj" android:backgroundTint="#D5D4D4"
+            android:textColor="#FF0000"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

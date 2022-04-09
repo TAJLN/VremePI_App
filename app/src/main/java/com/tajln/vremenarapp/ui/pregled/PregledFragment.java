@@ -1,16 +1,17 @@
 package com.tajln.vremenarapp.ui.pregled;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import com.tajln.vremenarapp.MainActivity;
+import com.tajln.vremenarapp.R;
+import com.tajln.vremenarapp.config.EnvVal;
 import com.tajln.vremenarapp.data.NetworkManager;
 import com.tajln.vremenarapp.databinding.FragmentHomeBinding;
 
@@ -19,7 +20,6 @@ public class PregledFragment extends Fragment {
     private PregledViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
-    @SuppressLint("NewApi")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -28,15 +28,19 @@ public class PregledFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textLastUpdate;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
-        NetworkManager.updateToLatest(root);
+        if(EnvVal.kljuc_postaje == null){
+            System.out.println("KLJUC JE NULL, PONAVLJAM, KLJUC JE NULL");
+            TextView lastupdate = root.findViewById(R.id.text_lastUpdate);
+            lastupdate.setText("Postaja ni nastavljena, nastavite jo v nastavitvah");
+            MainActivity.hideEmAll(root);
+
+        } else{
+
+            NetworkManager.updateToLatest(root);
+
+            MainActivity.showEmAll(root);
+        }
 
         return root;
     }

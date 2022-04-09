@@ -1,5 +1,6 @@
 package com.tajln.vremenarapp.ui.grafi;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Spinner;
 import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.charts.LineChart;
 import com.tajln.vremenarapp.R;
+import com.tajln.vremenarapp.config.EnvVal;
 import com.tajln.vremenarapp.data.NetworkManager;
 
 public class GrafiFragment extends Fragment{
@@ -37,7 +39,8 @@ public class GrafiFragment extends Fragment{
             s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                    NetworkManager.updatelast30(lineChart, String.valueOf(s.getSelectedItem()));
+                    if(EnvVal.kljuc_postaje != null)
+                        NetworkManager.updatelast30(lineChart, String.valueOf(s.getSelectedItem()));
                 }
 
                 @Override
@@ -47,6 +50,7 @@ public class GrafiFragment extends Fragment{
             });
         }
 
+
         lineChart = view.findViewById(R.id.chart1);
         this.view = view;
 
@@ -55,7 +59,12 @@ public class GrafiFragment extends Fragment{
     }
 
     public void getGrowth(){
-        Spinner spinner = view.findViewById(R.id.spinner);
-        NetworkManager.updatelast30(lineChart, (String) spinner.getSelectedItem());
+        if(EnvVal.kljuc_postaje != null) {
+            Spinner spinner = view.findViewById(R.id.spinner);
+            NetworkManager.updatelast30(lineChart, (String) spinner.getSelectedItem());
+        } else{
+            lineChart.setNoDataText("Postaja ni nastavljena, nastavite jo v nastavitvah");
+            lineChart.setNoDataTextColor(Color.BLACK);
+        }
     }
 }

@@ -7,6 +7,8 @@ public class EnvVal {
     public static String CLIENT_ID = "64ab2cfc32862cd0";
     public static String REDIRECT_URI = "vremepi://deeplink";
 
+    public static String kljuc_postaje = null;
+
     public static JSONObject TokenBody;
 
     public static JSONObject UserInfo;

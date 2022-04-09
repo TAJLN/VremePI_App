@@ -2,15 +2,12 @@ package com.tajln.vremenarapp.data;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
-import android.os.health.SystemHealthManager;
 import android.util.Log;
 import android.util.LruCache;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.RequiresApi;
 import com.android.volley.*;
 import com.android.volley.toolbox.*;
@@ -20,8 +17,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.tajln.vremenarapp.R;
 import com.tajln.vremenarapp.SettingsActivity;
 import com.tajln.vremenarapp.config.EnvVal;
@@ -29,13 +24,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static com.tajln.vremenarapp.config.EnvVal.kljuc_postaje;
 
 public class NetworkManager {
     private static NetworkManager instance;
@@ -101,7 +95,6 @@ public class NetworkManager {
         return imageLoader;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public static void updateToLatest(View activity){
 
         RequestQueue queue = Volley.newRequestQueue(ctx);
@@ -118,41 +111,46 @@ public class NetworkManager {
 
         JSONObject object = new JSONObject();
         try {
-            object.put("kljuc","A35FNA1F");
+            object.put("kljuc", EnvVal.kljuc_postaje);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 response -> {
+                    System.out.println(response);
                     try {
-                        Timestamp cas = Timestamp.valueOf(response.getString("time").replaceAll("T", " ").replaceAll("[.]000[+]00:00", ""));
-                        LocalDateTime triggerTime =
-                                LocalDateTime.ofInstant(Instant.ofEpochMilli(cas.getTime()),
-                                        TimeZone.getDefault().toZoneId());
+                        if(!response.getString("time").equals("null")) {
+                            Timestamp cas = Timestamp.valueOf(response.getString("time").replaceAll("T", " ").replaceAll("[.]000[+]00:00", ""));
+                            LocalDateTime triggerTime =
+                                    LocalDateTime.ofInstant(Instant.ofEpochMilli(cas.getTime()),
+                                            TimeZone.getDefault().toZoneId());
 
-                        int hour = triggerTime.getHour();
-                        String h;
-                        if(hour < 10)
-                            h = "0" + hour;
-                        else
-                            h = String.valueOf(hour);
+                            int hour = triggerTime.getHour();
+                            String h;
+                            if (hour < 10)
+                                h = "0" + hour;
+                            else
+                                h = String.valueOf(hour);
 
-                        int min = triggerTime.getMinute();
-                        String m;
-                        if(min < 10)
-                            m = "0" + min;
-                        else
-                            m = String.valueOf(min);
+                            int min = triggerTime.getMinute();
+                            String m;
+                            if (min < 10)
+                                m = "0" + min;
+                            else
+                                m = String.valueOf(min);
 
-                        int sec = triggerTime.getSecond();
-                        String s;
-                        if(sec < 10)
-                            s = "0" + sec;
-                        else
-                            s = String.valueOf(sec);
+                            int sec = triggerTime.getSecond();
+                            String s;
+                            if (sec < 10)
+                                s = "0" + sec;
+                            else
+                                s = String.valueOf(sec);
 
-                        lastUpdate.setText("Osveženo: " + triggerTime.getDayOfMonth() + ". " + triggerTime.getMonthValue() + ". " + triggerTime.getYear() + " " + h + ":" + m + ":" + s);
+                            lastUpdate.setText("Osveženo: " + triggerTime.getDayOfMonth() + ". " + triggerTime.getMonthValue() + ". " + triggerTime.getYear() + " " + h + ":" + m + ":" + s);
+                        }else{
+                            lastUpdate.setText("Ta postaja še nima podatkov");
+                        }
                         temp.setText(round(response.getDouble("temperatura"), 1) + " °C");
                         vlaga.setText(round(response.getDouble("vlaga"), 1) + " %");
                         pritisk.setText(round(response.getDouble("pritisk") / 1000, 3) + " bar");
@@ -214,7 +212,7 @@ public class NetworkManager {
 
         JSONObject object = new JSONObject();
         try {
-            object.put("kljuc","A35FNA1F");
+            object.put("kljuc",EnvVal.kljuc_postaje);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -223,22 +221,28 @@ public class NetworkManager {
         CustomJsonArrayRequest jsonArrayRequest = new CustomJsonArrayRequest(Request.Method.POST, url, object,
                 arr -> {
                     try {
-                        for (int i=0; i < arr.length(); i++) {
-                            JSONObject o = arr.getJSONObject(i);
-                            lineEntry.add(new Entry(i*20, (float) o.getDouble(finalReq)));
+                        if(arr.length() != 0) {
+                            for (int i = 0; i < arr.length(); i++) {
+                                JSONObject o = arr.getJSONObject(i);
+                                lineEntry.add(new Entry(i * 20, (float) o.getDouble(finalReq)));
+                            }
+                            LineDataSet lineDataSet = new LineDataSet(lineEntry, kaj);
+                            lineDataSet.setColors(ColorTemplate.rgb("#000000"));
+
+                            LineData lineData = new LineData(lineDataSet);
+
+                            lineChart.setVisibility(View.VISIBLE);
+                            lineChart.setData(lineData);
+
+                            Description description = new Description();
+                            description.setText("Čas");
+                            lineChart.setDescription(description);
+                            lineChart.invalidate();
+                        }else{
+                            lineChart.clear();
+                            lineChart.setNoDataText("Ta postaja še nima podatkov");
+                            lineChart.setNoDataTextColor(Color.BLACK);
                         }
-                        LineDataSet lineDataSet = new LineDataSet(lineEntry, kaj);
-                        lineDataSet.setColors(ColorTemplate.rgb("#000000"));
-
-                        LineData lineData = new LineData(lineDataSet);
-
-                        lineChart.setVisibility(View.VISIBLE);
-                        lineChart.setData(lineData);
-
-                        Description description = new Description();
-                        description.setText("Čas");
-                        lineChart.setDescription(description);
-                        lineChart.invalidate();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -250,7 +254,7 @@ public class NetworkManager {
     }
 
     public interface VolleyCallBack {
-        void onSuccess(JSONObject body);
+        void onSuccess(JSONObject body) throws JSONException;
         void onFail();
     }
 
@@ -340,22 +344,54 @@ public class NetworkManager {
 
                     for (int i=0; i < response.length(); i++) {
                         try {
-                            arraySpinner.add(response.getJSONObject(i).getString("ime"));
+                            JSONObject postaja = response.getJSONObject(i);
+
+                            arraySpinner.add(postaja.getString("ime") + " - " + postaja.getString("kljuc"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(SettingsActivity.SettingsFragment.ctx,
+                            android.R.layout.simple_spinner_item, arraySpinner);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
 
-                    if(spinner != null) {
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ctx,
-                                android.R.layout.simple_spinner_item, arraySpinner);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinner.setAdapter(adapter);
+                    if(kljuc_postaje != null){
+                        int index = 0;
+                        for(String s : retrieveAllItems(spinner)){
+                            if(s.contains(kljuc_postaje))
+                                spinner.setSelection(index);
+                            index++;
+                        }
                     }
-        }, error -> System.out.println(error.toString()));
+
+                }, error -> System.out.println(error.toString()));
         queue.add(jsonArrayRequest);
+    }
+
+    public static void createPostaja(String token, String name, final VolleyCallBack callBack){
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        String url ="http://tajln.dev.uk.to:8080/podatki/addPostaja";
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("token", token);
+            object.put("ime", name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                response -> {
+                    try {
+                        callBack.onSuccess(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> System.out.println(error.toString()));
+        queue.add(jsonObjectRequest);
     }
 
     public static void getUserInfo(final VolleyCallBack callBack) {
@@ -391,6 +427,55 @@ public class NetworkManager {
         queue.add(sr);
     }
 
+    public static void deletePostaja(String kljuc, String token, final VolleyCallBack callback){
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        String url ="http://tajln.dev.uk.to:8080/podatki/deletePostaja";
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("kljuc", kljuc);
+            object.put("token", token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                response -> {
+                    try {
+                        callback.onSuccess(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> System.out.println(error.toString()));
+
+        queue.add(jsonObjectRequest);
+    }
+
+    public static void getPostaja(String kljuc, final VolleyCallBack callback){
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        String url ="http://tajln.dev.uk.to:8080/podatki/getPostaja";
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("kljuc", kljuc);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                response -> {
+                    try {
+                        callback.onSuccess(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> System.out.println(error.toString()));
+
+        queue.add(jsonObjectRequest);
+    }
+
     public static void LoadImage(ImageView imageView, String url){
         RequestQueue queue = Volley.newRequestQueue(ctx);
 
@@ -419,16 +504,13 @@ public class NetworkManager {
         return (double) tmp / factor;
     }
 
-
-    public static String[] getStringArray(JSONArray jsonArray) {
-        String[] stringArray = null;
-        if (jsonArray != null) {
-            int length = jsonArray.length();
-            stringArray = new String[length];
-            for (int i = 0; i < length; i++) {
-                stringArray[i] = jsonArray.optString(i);
-            }
+    public static List<String> retrieveAllItems(Spinner theSpinner) {
+        Adapter adapter = theSpinner.getAdapter();
+        int n = adapter.getCount();
+        List<String> items = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            items.add((String) adapter.getItem(i));
         }
-        return stringArray;
+        return items;
     }
 }

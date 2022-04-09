@@ -16,5 +16,11 @@
                 android:title="@string/menu_grafi"
                 android:color="@color/black"
         />
+        <item
+                android:id="@+id/primerjava"
+                android:icon="@drawable/primerjava"
+                android:title="@string/primerjava_podatkov"
+                android:color="@color/black"
+        />
     </group>
 </menu>
