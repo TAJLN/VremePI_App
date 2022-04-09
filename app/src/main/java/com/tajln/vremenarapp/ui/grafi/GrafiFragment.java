@@ -28,7 +28,7 @@ public class GrafiFragment extends Fragment{
         String[] arraySpinner = new String[] {
                 "Vlaga", "Pritisk", "Temperatura", "Svetloba", "Oxidacije", "Redukcije", "NH3"
         };
-        Spinner s = view.findViewById(R.id.spinner1);
+        Spinner s = view.findViewById(R.id.spinner);
         if(s != null) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(),
                     android.R.layout.simple_spinner_item, arraySpinner);
@@ -55,7 +55,7 @@ public class GrafiFragment extends Fragment{
     }
 
     public void getGrowth(){
-        Spinner spinner = view.findViewById(R.id.spinner1);
+        Spinner spinner = view.findViewById(R.id.spinner);
         NetworkManager.updatelast30(lineChart, (String) spinner.getSelectedItem());
     }
 }

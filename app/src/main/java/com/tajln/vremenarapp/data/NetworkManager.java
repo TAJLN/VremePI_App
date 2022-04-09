@@ -23,6 +23,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.tajln.vremenarapp.R;
+import com.tajln.vremenarapp.SettingsActivity;
 import com.tajln.vremenarapp.config.EnvVal;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -250,6 +251,7 @@ public class NetworkManager {
 
     public interface VolleyCallBack {
         void onSuccess(JSONObject body);
+        void onFail();
     }
 
     public static void getToken(String CODE, String CODE_VERIFIER, final VolleyCallBack callBack) {
@@ -319,6 +321,43 @@ public class NetworkManager {
         queue.add(jsonObjectRequest);
     }
 
+
+    public static void getUserPostaje(String token, Spinner spinner){
+        RequestQueue queue = Volley.newRequestQueue(ctx);
+        String url ="http://tajln.dev.uk.to:8080/podatki/getUserPostaje";
+
+        JSONObject object = new JSONObject();
+        try {
+            object.put("token", token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        CustomJsonArrayRequest jsonArrayRequest = new CustomJsonArrayRequest(Request.Method.POST, url, object,
+                response -> {
+
+                    List<String> arraySpinner = new ArrayList<>();
+
+                    for (int i=0; i < response.length(); i++) {
+                        try {
+                            arraySpinner.add(response.getJSONObject(i).getString("ime"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                    if(spinner != null) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(ctx,
+                                android.R.layout.simple_spinner_item, arraySpinner);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner.setAdapter(adapter);
+                    }
+        }, error -> System.out.println(error.toString()));
+        queue.add(jsonArrayRequest);
+    }
+
     public static void getUserInfo(final VolleyCallBack callBack) {
         RequestQueue queue = Volley.newRequestQueue(ctx);
         String url ="https://api.one-account.io/v1/oauth/userinfo";
@@ -332,7 +371,10 @@ public class NetworkManager {
                         e.printStackTrace();
                     }
                 },
-                error -> Log.e("HttpClient", "error: " + error.toString()))
+                error -> {
+                    Log.e("HttpClient", "error: " + error.toString());
+                    callBack.onFail();
+                })
         {
             @Override
             public Map<String, String> getHeaders() {
@@ -375,5 +417,18 @@ public class NetworkManager {
         value = value * factor;
         long tmp = Math.round(value);
         return (double) tmp / factor;
+    }
+
+
+    public static String[] getStringArray(JSONArray jsonArray) {
+        String[] stringArray = null;
+        if (jsonArray != null) {
+            int length = jsonArray.length();
+            stringArray = new String[length];
+            for (int i = 0; i < length; i++) {
+                stringArray[i] = jsonArray.optString(i);
+            }
+        }
+        return stringArray;
     }
 }

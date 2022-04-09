@@ -15,7 +15,7 @@
             android:layout_marginBottom="80dp" android:visibility="visible" android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"/>
     <Spinner
-            android:id="@+id/spinner1"
+            android:id="@+id/spinner"
             android:layout_width="314dp"
             android:layout_height="wrap_content"
             android:background="@android:drawable/btn_dropdown"
