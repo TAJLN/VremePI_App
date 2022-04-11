@@ -365,9 +365,11 @@ public class SettingsActivity extends AppCompatActivity {
         public static void logout(View view){
             TokenBody = null;
             UserInfo = null;
+            kljuc_postaje = null;
 
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("TokenBody", null);
+            editor.putString("kljuc", null);
             editor.apply();
 
             Activity a = (Activity) view.getContext();
