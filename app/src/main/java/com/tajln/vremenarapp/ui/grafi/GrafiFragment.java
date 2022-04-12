@@ -52,6 +52,7 @@ public class GrafiFragment extends Fragment{
 
 
         lineChart = view.findViewById(R.id.chart1);
+
         this.view = view;
 
         getGrowth();
@@ -63,6 +64,7 @@ public class GrafiFragment extends Fragment{
             Spinner spinner = view.findViewById(R.id.spinner);
             NetworkManager.updatelast30(lineChart, (String) spinner.getSelectedItem());
         } else{
+            lineChart.clear();
             lineChart.setNoDataText("Postaja ni nastavljena, nastavite jo v nastavitvah");
             lineChart.setNoDataTextColor(Color.BLACK);
         }

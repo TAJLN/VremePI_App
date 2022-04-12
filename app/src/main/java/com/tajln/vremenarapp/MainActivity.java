@@ -68,12 +68,8 @@ public class MainActivity extends AppCompatActivity {
             }});
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery)
-                .setDrawerLayout(drawer)
-                .build();
+
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_gallery).setDrawerLayout(drawer).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -121,6 +117,14 @@ public class MainActivity extends AppCompatActivity {
         TextView redukcije = root.findViewById(R.id.redukcije);
         TextView nh3napis = root.findViewById(R.id.nh3napis);
 
+        TextView tempText = root.findViewById(R.id.text_temp);
+        TextView vlagaText = root.findViewById(R.id.text_vlaga);
+        TextView pritiskText = root.findViewById(R.id.text_pritisk);
+        TextView svetlobaText = root.findViewById(R.id.text_svetloba);
+        TextView oxidText = root.findViewById(R.id.text_oxidacije);
+        TextView reduText = root.findViewById(R.id.text_redukcije);
+        TextView nh3Text = root.findViewById(R.id.text_nh3);
+
         droplet.setVisibility(View.GONE);
         barometer.setVisibility(View.GONE);
         sun.setVisibility(View.GONE);
@@ -134,6 +138,14 @@ public class MainActivity extends AppCompatActivity {
         oxidacije.setVisibility(View.GONE);
         redukcije.setVisibility(View.GONE);
         nh3napis.setVisibility(View.GONE);
+
+        tempText.setVisibility(View.GONE);
+        vlagaText.setVisibility(View.GONE);
+        pritiskText.setVisibility(View.GONE);
+        svetlobaText.setVisibility(View.GONE);
+        oxidText.setVisibility(View.GONE);
+        reduText.setVisibility(View.GONE);
+        nh3Text.setVisibility(View.GONE);
 
     }
 
@@ -152,6 +164,14 @@ public class MainActivity extends AppCompatActivity {
         TextView redukcije = root.findViewById(R.id.redukcije);
         TextView nh3napis = root.findViewById(R.id.nh3napis);
 
+        TextView tempText = root.findViewById(R.id.text_temp);
+        TextView vlagaText = root.findViewById(R.id.text_vlaga);
+        TextView pritiskText = root.findViewById(R.id.text_pritisk);
+        TextView svetlobaText = root.findViewById(R.id.text_svetloba);
+        TextView oxidText = root.findViewById(R.id.text_oxidacije);
+        TextView reduText = root.findViewById(R.id.text_redukcije);
+        TextView nh3Text = root.findViewById(R.id.text_nh3);
+
         droplet.setVisibility(View.VISIBLE);
         barometer.setVisibility(View.VISIBLE);
         sun.setVisibility(View.VISIBLE);
@@ -165,5 +185,13 @@ public class MainActivity extends AppCompatActivity {
         oxidacije.setVisibility(View.VISIBLE);
         redukcije.setVisibility(View.VISIBLE);
         nh3napis.setVisibility(View.VISIBLE);
+
+        tempText.setVisibility(View.VISIBLE);
+        vlagaText.setVisibility(View.VISIBLE);
+        pritiskText.setVisibility(View.VISIBLE);
+        svetlobaText.setVisibility(View.VISIBLE);
+        oxidText.setVisibility(View.VISIBLE);
+        reduText.setVisibility(View.VISIBLE);
+        nh3Text.setVisibility(View.VISIBLE);
     }
 }

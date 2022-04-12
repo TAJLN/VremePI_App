@@ -239,9 +239,9 @@ public class NetworkManager {
                             lineChart.setDescription(description);
                             lineChart.invalidate();
                         }else{
-                            lineChart.clear();
                             lineChart.setNoDataText("Ta postaja še nima podatkov");
                             lineChart.setNoDataTextColor(Color.BLACK);
+                            lineChart.clear();
                         }
 
                     } catch (JSONException e) {
